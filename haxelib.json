@@ -1,0 +1,14 @@
+{
+    "name": "bitvector",
+    "url": "https://github.com/tbrosman/bitvector",
+    "license": "UNLICENSED",
+    "tags": [],
+    "description": "A library for working with vectors of bits.",
+    "version": "0.0.1",
+    "releasenote": "",
+    "contributors": ["tbrosman"],
+    "dependencies": {
+        "hx3compat": "1.0.3",
+        "hxmath": "0.18.0"
+    }
+  }
