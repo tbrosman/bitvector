@@ -1,5 +1,6 @@
 package bitvector;
 
+import bitvector.test.BitMapTestCase;
 import bitvector.test.BitVectorTestCase;
 import haxe.unit.TestRunner;
 
@@ -9,6 +10,7 @@ class TestMain
     {
         var runner = new TestRunner();
         runner.add(new BitVectorTestCase());
+        runner.add(new BitMapTestCase());
         runner.run();
     }
 }

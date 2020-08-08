@@ -65,7 +65,7 @@ class BitVectorTestCase extends TestCase
         var bitVector = new BitVector();
         var fillLength = 35;
 
-        bitVector.fill(fillLength, true);
+        bitVector.fill(fillLength, 1);
         assertEquals(2, bitVector.chunkLength);
         assertEquals(0xFFFFFFFF, bitVector.getChunk(0));
         assertEquals(0xE0000000, bitVector.getChunk(1));

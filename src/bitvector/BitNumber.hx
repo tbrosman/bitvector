@@ -115,7 +115,7 @@ class BitNumber extends BitVector
 
         // Don't bother calculating whether there will be overflow, just add an extra half-chunk
         var halfChunkLengthC = Math.ceil(minBitLength / bitsPerHalfChunk);
-        c.fill(bitsPerHalfChunk * halfChunkLengthC, false);
+        c.fill(bitsPerHalfChunk * halfChunkLengthC, 0);
 
         // Split in half to make handling overflow easier
         for (halfChunkIndexReverse in 0...halfChunkLengthC)

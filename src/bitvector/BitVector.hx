@@ -53,9 +53,10 @@ class BitVector
      * @param fillBitLength The number of bits to fill.
      * @param value The bit value.
      */
-    public function fill(fillBitLength:Int, value:Bool)
+    public function fill(fillBitLength:Int, bit:Int)
     {
-        var fullChunkPattern = value ? 0xFFFFFFFF : 0x00000000;
+        assertIsBit(bit);
+        var fullChunkPattern = bit == 0 ? 0x00000000 : 0xFFFFFFFF;
         var fullChunksToBlit = getChunkIndex(fillBitLength);
 
         for (chunkIndex in 0...fullChunksToBlit)
@@ -225,9 +226,9 @@ class BitVector
      * @param bitIndex The index of the bit to set.
      * @param value The bit value.
      */
-    public function setBit(bitIndex:Int, value:Int):Void
+    public function setBit(bitIndex:Int, bit:Int):Void
     {
-        Assert.assert(value & ~1 == 0);
+        assertIsBit(bit);
         var chunkIndex:Int = getChunkIndex(bitIndex);
         var chunkBit:Int = getChunkBit(bitIndex);
         ensureSizeForChunkIndex(chunkIndex);
@@ -235,7 +236,7 @@ class BitVector
         // Bit indexes start from the left-hand side, but 1 is on the right-hand side
         var shiftBits = bitsPerChunk - 1 - chunkBit;
         
-        if (value == 1)
+        if (bit == 1)
         {
             chunks[chunkIndex] = chunks[chunkIndex] | (1 << shiftBits);
         }
@@ -419,7 +420,7 @@ class BitVector
     public static function fromHexString(hexString:String):BitVector
     {
         var number = new BitVector();
-        number.fill(4 * hexString.length, false);
+        number.fill(4 * hexString.length, 0);
         
         for (nibbleIndex in 0...hexString.length)
         {
@@ -486,7 +487,7 @@ class BitVector
         var one = "1".charCodeAt(0);
 
         var number = new BitVector();
-        number.fill(binString.length, false);
+        number.fill(binString.length, 0);
 
         for (bitIndex in 0...binString.length)
         {
@@ -557,5 +558,10 @@ class BitVector
     {
         Assert.assert(chunkBit < bitsPerChunk);
         return (chunkIndex << 5) | chunkBit;
+    }
+
+    private static inline function assertIsBit(value:Int):Void
+    {
+        Assert.assert(value & ~1 == 0);
     }
 }
